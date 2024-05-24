@@ -9,9 +9,11 @@ from sklearn.base import BaseEstimator, TransformerMixin
 
 class TextFeatureExtractor(BaseEstimator, TransformerMixin):
     def __init__(self):
-        pass
+        self.unique=set()
 
     def fit(self, X, y=None):
+        for emotion_list in X['text'].apply(find_emotions):
+            self.unique.update(emotion_list)
         return self
 
     def transform(self, X):
@@ -26,7 +28,11 @@ class TextFeatureExtractor(BaseEstimator, TransformerMixin):
         X['count_mentions'] = X['text'].apply(count_mentions)
         X['polarity'] = X['text'].apply(get_polarity)
         X['subjectivity'] = X['text'].apply(get_subjectivity)
-        X['emotion'] = X['text'].apply(find_emotion)
+        X['emotions'] = X['text'].apply(find_emotions)
+
+        for e in self.unique:
+            X[e] = X['emotions'].apply(lambda x: 1 if e in x else 0)
+
         return X
 
     def set_output(self, *args, **kwargs):
@@ -77,24 +83,20 @@ def count_parts_of_speech(text, tag):
     tagged = nltk.pos_tag(tokens)
     part_count = sum(1 for word,pos in tagged if pos.startswith(tag))
     return part_count
-
-def map_countries(location):
-    if location in ['New York','United States','Los Angeles, CA','NYC','Los Angeles','Washington, DC','San Francisco','California, USA','Florida','New York, NY', 'California']:
-        return 'USA'
-    elif location in ['London', 'UK','England.', 'London, UK']:
-        return 'UK'
-    else:
-        return location
     
-
 def get_polarity(text): # checking if a tweet was negative (-1), neutral (0) or positive (1)
     return TextBlob(text).sentiment.polarity
 
 def get_subjectivity(text): #checking if a tweet is subjective or objective
     return TextBlob(text).sentiment.subjectivity
 
-def find_emotion(text):
+def find_emotions(text):
     emotion = NRCLex(text)
     top = emotion.top_emotions
     emotion_names = [emotion_tuple[0] for emotion_tuple in top]
     return list(emotion_names)
+
+
+
+
+    
