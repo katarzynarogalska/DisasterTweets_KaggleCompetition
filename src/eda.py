@@ -10,7 +10,6 @@ from sklearn.base import BaseEstimator, TransformerMixin
 class TextFeatureExtractor(BaseEstimator, TransformerMixin):
     def __init__(self):
         self.unique=set()
-
     def fit(self, X, y=None):
         for emotion_list in X['text'].apply(find_emotions):
             self.unique.update(emotion_list)
@@ -26,9 +25,14 @@ class TextFeatureExtractor(BaseEstimator, TransformerMixin):
         X['count_links'] = X['text'].apply(count_links)
         X['count_stopwords'] = X['text'].apply(count_stopwords)
         X['count_mentions'] = X['text'].apply(count_mentions)
+        X['count_verbs'] = X['text'].apply(count_parts_of_speech, tag='V')
+        X['count_nouns'] = X['text'].apply(count_parts_of_speech,tag= 'N')
+        X['count_adjectives'] = X['text'].apply(count_parts_of_speech, tag='J')
+        X['count_adverbs'] = X['text'].apply(count_parts_of_speech,tag= 'RB')
         X['polarity'] = X['text'].apply(get_polarity)
         X['subjectivity'] = X['text'].apply(get_subjectivity)
         X['emotions'] = X['text'].apply(find_emotions)
+
 
         for e in self.unique:
             X[e] = X['emotions'].apply(lambda x: 1 if e in x else 0)

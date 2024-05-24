@@ -6,6 +6,9 @@ from sklearn.base import BaseEstimator, TransformerMixin
 
 
 class TextProcessing(BaseEstimator, TransformerMixin):
+    def __init__(self):
+        self.god_terms = ['god', 'jesus', 'allah', 'yahweh', 'buddha', 'shiva', 'krishna']
+
     def fit(self, X, y=None):
         return self
 
@@ -13,6 +16,8 @@ class TextProcessing(BaseEstimator, TransformerMixin):
         
         X['processed_text'] = X['text'].apply(self.process_text)
         X['processed_text_str'] = X['processed_text'].apply(lambda tokens: ' '.join(tokens))
+        X['mention_god_related'] = X['processed_text'].apply(lambda x: any(term in x for term in self.god_terms))
+
         return X
 
     def process_text(self, text):
