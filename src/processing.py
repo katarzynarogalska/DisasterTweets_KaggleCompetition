@@ -16,7 +16,7 @@ class TextProcessing(BaseEstimator, TransformerMixin):
         
         X['processed_text'] = X['text'].apply(self.process_text)
         X['processed_text_str'] = X['processed_text'].apply(lambda tokens: ' '.join(tokens))
-        X['mention_god_related'] = X['processed_text'].apply(lambda x: any(term in x for term in self.god_terms))
+        X['mention_god_related'] = X['processed_text'].apply(lambda x: 1 if any(term in x for term in self.god_terms) else 0)
 
         return X
 
