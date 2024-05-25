@@ -2,6 +2,7 @@ import re
 import nltk
 from nltk.corpus import stopwords
 from nltk.stem import WordNetLemmatizer
+from sklearn.preprocessing import StandardScaler
 from sklearn.base import BaseEstimator, TransformerMixin
 
 
@@ -80,3 +81,6 @@ def processing_text(text):
     lematized = lemmatize_sentence(text)
     without_stopwords = filter_stop_words(lematized)
     return without_stopwords
+
+        
+
