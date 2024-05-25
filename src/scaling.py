@@ -8,7 +8,8 @@ class FeatureScaler(BaseEstimator, TransformerMixin):
         self.scaler.fit(X.select_dtypes(include=['number']))
         return self
     def transform(self,X):
-        c = X.copy()
         numerical_cols = X.select_dtypes(include=['number']).columns
-        c[numerical_cols] = self.scaler.transform(c[numerical_cols])
-        return c 
+        X[numerical_cols] = self.scaler.transform(X[numerical_cols])
+        return X
+    def set_output(self, *args, **kwargs):
+        return self
