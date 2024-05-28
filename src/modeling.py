@@ -2,11 +2,9 @@ from keras import layers
 import tensorflow as tf
 from tensorflow import keras
 from tqdm import tqdm
-
 from sklearn.model_selection import RandomizedSearchCV
 from scipy.stats import randint
 from sklearn.metrics import classification_report
-
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.svm import SVC
 from sklearn.linear_model import LogisticRegression
