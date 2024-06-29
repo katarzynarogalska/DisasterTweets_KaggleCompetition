@@ -27,7 +27,7 @@ DisasterTweets_KaggleCompetition/
   ├── notebooks/          # Jupyter Notebooks 
   ├── pipelines/          # pipelines for processing data 
   ├── reqirements.txt     # needed tool versions
-  ├── Project_report.pdf   # documentation for this project
+  ├── Project_report.pdf  # documentation for this project
   └── README.md           # This file
 ```
 # Milestones 
