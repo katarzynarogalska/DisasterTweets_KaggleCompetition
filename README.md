@@ -18,7 +18,8 @@ We are using data from [Kaggle competition](https://www.kaggle.com/competitions/
 * location - the location the tweet was sent from
 * text - the text of the tweet
 * **target** - denotes whether a tweet is about a real disaster (1) or not (0)
-**Project Structure**
+  
+# Project Structure
 ```
 DisasterTweets_KaggleCompetition/
   ├── data/               # Raw data & submission file
@@ -26,6 +27,7 @@ DisasterTweets_KaggleCompetition/
   ├── notebooks/          # Jupyter Notebooks 
   ├── pipelines/          # pipelines for processing data 
   ├── reqirements.txt     # needed tool versions
+  ├── Project_report.pdf   # documentation for this project
   └── README.md           # This file
 ```
 # Milestones 
