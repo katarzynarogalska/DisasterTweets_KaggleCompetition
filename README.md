@@ -18,7 +18,16 @@ We are using data from [Kaggle competition](https://www.kaggle.com/competitions/
 * location - the location the tweet was sent from
 * text - the text of the tweet
 * **target** - denotes whether a tweet is about a real disaster (1) or not (0)
-
+**Project Structure**
+```
+DisasterTweets_KaggleCompetition/
+  ├── data/               # Raw data & submission file
+  ├── img/                # Where images are stored
+  ├── notebooks/          # Jupyter Notebooks 
+  ├── pipelines/          # pipelines for processing data 
+  ├── reqirements.txt     # needed tool versions
+  └── README.md           # This file
+```
 # Milestones 
 ## EDA and Feature engineering
 In this part we focused on analysing the data. How can we gather more information from a plain text? 
